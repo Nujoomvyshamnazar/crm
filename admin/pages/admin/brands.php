@@ -47,7 +47,7 @@
 
                             <ul class="header-dropdown m-r--5">
 <div class="js-modal-buttons">
-                                  <button type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" data-color="light-green">
+                                  <button type="button" class="btn bg-green btn-circle-lg waves-effect waves-circle waves-float" data-color="light-green" data-toggle="modal" data-target="#defaultModal">
                                         <i class="material-icons">add</i>
                                     </button>
 </div>
@@ -94,7 +94,7 @@ $result = $adminlist->getAllBrands();
 
                                         </tr>
                                     </tfoot>
-                                    <tbody>
+                                    <tbody id="dataTable">
                                       <?php
                                       if (! empty($result)) {
                                           foreach ($result as $k => $v) {
@@ -112,16 +112,19 @@ $result = $adminlist->getAllBrands();
                                         <ul class="dropdown-menu">
                                             <li><a href="javascript:void(0);" class=" waves-effect waves-block">
                                              <div class="js-modal-buttons">
-                                               <button class="btn bg-orange waves-effect  waves-float" data-color="orange">
+                                               <button class="btn bg-orange waves-effect  waves-float" data-color="orange" onclick="editBrand(<?=$result[$k]["id"]; ?>)"  data-toggle="modal" data-target="#defaultModalupdate">
                                               Edit
                                             </button>
                                             </div>
                                           </a></li>
                                             <li>
-                    <a href="javascript:void(0);" class=" waves-effect waves-block">
-    <div class="js-sweetalert">
-  <button class="btn bg-red waves-effect  waves-float" data-type="confirm">Delete</button>
-</div>   </a>                         </li>
+
+<a href="javascript:void(0);" class=" waves-effect waves-block">
+<div class="js-sweetalert">
+<button class="btn bg-red waves-effect  waves-float" onclick="deleteBrand(<?=$result[$k]["id"]; ?>)" data-placement-from="bottom" data-placement-align="left"
+data-animate-enter="" data-animate-exit="" data-color-name="alert-danger">Delete</button>
+</div>   </a>
+                  </li>
 
 
                                         </ul>

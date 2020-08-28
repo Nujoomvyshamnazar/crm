@@ -68,6 +68,13 @@ class ADagency {
         $sql = $this->conn->prepare($query);
         $this->bindQueryParams($sql, $param_type, $param_value_array);
         $update = $sql->execute();
+        if($update)
+        {
+          return true;
+        }
+        else {
+          return false;
+        }
 
     }
 }

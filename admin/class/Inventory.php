@@ -9,6 +9,66 @@ class Inventory
     }
 
 
+
+    function updateBrand($id,$name,$status) {
+        $query = "UPDATE  tbrl_brands SET name ='$name',status='$status' WHERE id =$id";
+        $paramType = "iss";
+        $paramValue = array(
+    $name,
+          $id,
+          $status
+
+        );
+
+      $success=$this->db_handle->update($query, $paramType, $paramValue);
+      if($success)
+      {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    function deleteBrand($brand_id) {
+        $query = "DELETE FROM tbrl_brands WHERE id = ?";
+        $paramType = "i";
+        $paramValue = array(
+            $brand_id
+        );
+        $success = $this->db_handle->update($query, $paramType, $paramValue);
+        if($success)
+        {
+          return true;
+        }
+        else {
+          return false;
+        }
+    }
+
+    function addBrand($brand_name,$status) {
+        $query = "INSERT INTO tbrl_brands (name,status) VALUES (?, ?)";
+        $paramType = "ss";
+        $paramValue = array(
+            $brand_name,
+            $status
+              );
+              $insertId = $this->db_handle->insert($query, $paramType, $paramValue);
+              return $insertId;
+
+        }
+
+        function editBrandById($id) {
+            $query = "SELECT * FROM tbrl_brands WHERE id = ?";
+            $paramType = "i";
+            $paramValue = array(
+                $id
+            );
+
+            $result = $this->db_handle->runQuery($query, $paramType, $paramValue);
+            return $result;
+        }
+
 function getSupplierOffers()
 {
   $sql = "SELECT  tbrl_country.name as country,tbrl_country.iso as iso,tbrl_stock.id as id,tbrl_products.part_number as part_number,tbrl_products.image as image,tbrl_stock.id,tbrl_users.name as username,tbrl_products.name as product_name,tbrl_stock.stock as stock,tbrl_stock.status as status,tbrl_stock.budget as budget,tbrl_stock.admin_verified as admin_verified,tbrl_stock.created_date as created_date,tbrl_stock.stock_type as stock_type FROM  tbrl_stock

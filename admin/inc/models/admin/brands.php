@@ -13,7 +13,7 @@ $role = new Adminuser();
     <div class="modal-dialog" role="document">
         <div class="modal-content ">
             <div class="modal-header bg-red">
-                <h4 class="modal-title" id="defaultModalLabel">Add Role</h4>
+                <h4 class="modal-title" id="defaultModalLabel">Add Brand</h4>
             </div>
             <div class="modal-body">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -25,7 +25,7 @@ $role = new Adminuser();
                                                   <h2 class="card-inside-title">Name</h2>
                                                   <div class="form-group">
                                                       <div class="form-line" id="bs_datepicker_container">
-                                                          <input type="text" class="form-control" id="role_name" name="role_name" placeholder="Enter Role Name">
+                                                          <input type="text" class="form-control" id="brand_name" name="brand_name" placeholder="Enter Brand Name">
                                                       </div>
                                                   </div>
                                               </div>
@@ -45,7 +45,7 @@ $role = new Adminuser();
           </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-link waves-effect" onclick="addRole()" id="add">ADD</button>
+                <button type="button" class="btn btn-link waves-effect" onclick="addBrand()" id="add">ADD</button>
                 <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" onclick="location.reload();">CLOSE</button>
             </div>
         </div>
@@ -57,7 +57,7 @@ $role = new Adminuser();
     <div class="modal-dialog" role="document">
         <div class="modal-content ">
             <div class="modal-header bg-red">
-                <h4 class="modal-title" id="defaultModalLabel">Edit Role</h4>
+                <h4 class="modal-title" id="defaultModalLabel">Edit Brand</h4>
             </div>
             <div class="modal-body">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -70,9 +70,9 @@ $role = new Adminuser();
                                                   <h2 class="card-inside-title">Name</h2>
                                                   <div class="form-group">
                                                       <div class="form-line" id="bs_datepicker_container">
-                                                          <input type="text" class="form-control" id="role_name1" name="role_name1" placeholder="Enter Role Name">
+                                                          <input type="text" class="form-control" id="brand_name1" name="brand_name1" placeholder="Edit Brand Name">
 
-                                                           <input type="hidden" id="roleId" name="roleId">
+                                                           <input type="hidden" id="brandid" name="brandid">
                                                       </div>
                                                   </div>
                                               </div>
@@ -93,7 +93,7 @@ $role = new Adminuser();
                               </div>
           </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect"  id="Update">UPDATE</button>
+                <button type="button" class="btn btn-link waves-effect"  id="updateBrand" onclick="updateBrand()">UPDATE</button>
 
                 <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" onclick="location.reload();">CLOSE</button>
             </div>
@@ -103,23 +103,26 @@ $role = new Adminuser();
 
 <script>
 
-function updateRole()
+function updateBrand()
 {
-  var rolename= $("#role_name1").val();
-  var roleid=$("#roleId").val();
+
+  var brandname= $("#brand_name1").val();
+  var brandid=$("#brandid").val();
   var status=$("#status1").val();
 //  alert(status);
 $.ajax({
-  url: "ajax/update_role_by_id.php",
+  url: "ajax/update_brand_by_id.php",
   type: "POST",
   data: {
-    rolename:rolename,
+    brandname:brandname,
     status:status,
-    roleid:roleid
+    brandid:brandid
 
   },
   cache: false,
   success: function(dataResult){
+        swal("Updated!", "Your Data is Updated.", "success");
+loadBrand();
 
   }
 });
@@ -128,24 +131,24 @@ $.ajax({
 }
 
 
-function loadRole()
+function loadBrand()
 {
-$("#dataTable").load("ajax/load_role.php");
+$("#dataTable").load("ajax/load_brand.php");
 
 }
 
 //loadRole();
-function addRole()
+function addBrand()
 {
 
-if(rolename!="" && status!=""){
-  var rolename= $("#role_name").val();
+if(brandname!="" && status!=""){
+  var brandname= $("#brand_name").val();
   var status =$( "#status option:selected").val();
 			$.ajax({
-				url: "ajax/role_add.php",
+				url: "ajax/brand_add.php",
 				type: "POST",
 				data: {
-					rolename: rolename,
+					brandname: brandname,
 					status: status
 
 				},
@@ -153,8 +156,8 @@ if(rolename!="" && status!=""){
 				success: function(dataResult){
   $(".modal-backdrop.in").hide();
 showSuccessMessage();
-loadRole();
-var rolename= $("#role_name").val("");
+loadBrand();
+var brandname= $("#brand_name").val("");
 var status =$( "#status").val("");
 				}
 			});
@@ -165,67 +168,75 @@ var status =$( "#status").val("");
 		}
 }
 
-function editRole(role_id)
+function editBrand(brand_id)
 {
-  var title="Edit Role";
-  $("#defaultModalLabel").text(title);
-    $("#Update").show();
-    $("#add").hide();
+
+
     $.ajax({
-      url: "ajax/role_read_by_id.php",
+      url: "ajax/brand_read_by_id.php",
       type: "POST",
       data: {
-        role_id: role_id,
+        brand_id: brand_id,
 
 
       },
       cache: false,
       success: function(dataResult){
-  var role = JSON.parse(dataResult);
+  var brand = JSON.parse(dataResult);
   //alert(role.name);
-$("#roleId").val(role.id);
-$("#role_name1").val(role.name);
-$("#status1 option:selected").attr(role.status);
+$("#brandid").val(brand.brandid);
+$("#brand_name1").val(brand.name);
+$("#status1 option:selected").attr(brand.status);
 //$("#status1 option:selected").val(role.status);
       }
     });
 }
 
-function deleteRole(role_id)
+function deleteBrand(brand_id)
 {
 
-  swal({
-      title: "Are you sure?",
-      text: "You will not be able to recover this imaginary file!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel plx!",
-      closeOnConfirm: false,
-      closeOnCancel: false
-  }, function (isConfirm) {
-      if (isConfirm) {
-        $.ajax({
-          url: "ajax/delete_role_by_id.php",
-          type: "POST",
-          data: {
-            role_id: role_id,
+
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel plx!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function (isConfirm) {
+        if (isConfirm) {
+
+          $.ajax({
+            url: "ajax/delete_brand_by_id.php",
+            type: "POST",
+            data: {
+              brand_id: brand_id,
 
 
-          },
-          cache: false,
-          success: function(dataResult){
-              swal("Deleted!", "Your imaginary file has been deleted.", "success");
-        loadRole();
+            },
+            cache: false,
+            success: function(dataResult){
+              if(dataResult==1)
+              {
+                swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        loadBrand();
+              }
 
-          }
-        });
 
-      } else {
-          swal("Cancelled", "Your imaginary file is safe :)", "error");
-      }
-  });
+            }
+          });
+
+        } else {
+            swal("Cancelled", "Your imaginary file is safe :)", "error");
+        }
+    });
+
+
+
+
 
 
 

@@ -9,7 +9,7 @@ spl_autoload_register(function ($class) {
 ?>
 
 <?php
-/*
+
   $msg = '';
 
       if (!empty($_POST['username'])
@@ -39,7 +39,7 @@ spl_autoload_register(function ($class) {
          }
       }
  echo $msg;
-*/
+/*
 
     if (!empty($_POST['username'])
        && !empty($_POST['password'])) {
@@ -51,9 +51,9 @@ spl_autoload_register(function ($class) {
   $result   =$admin->processLogin($username,$password);
   foreach ($result as $k => $v) {
    return  $result[$k]["email"];
-  }
+ }
 
-}
+}*/
    ?>
 
 <body class="login-page">
@@ -88,7 +88,7 @@ spl_autoload_register(function ($class) {
                             <label for="rememberme">Remember Me</label>
                         </div>
                         <div class="col-xs-4">
-                            <button class="btn btn-block bg-pink waves-effect" type="submit"  id="submt" onclick="processlogin()">SIGN IN</button>
+                            <button class="btn btn-block bg-pink waves-effect" type="submit"  id="submt" >SIGN IN</button>
 
                         </div>
                     </div>
@@ -105,7 +105,7 @@ spl_autoload_register(function ($class) {
         </div>
     </div>
 
-
+<!--
 <script>
 
 function processlogin()

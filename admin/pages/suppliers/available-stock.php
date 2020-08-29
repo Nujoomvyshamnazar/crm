@@ -51,6 +51,9 @@
         $models = $inventory->getAllModels();
         $series = $inventory->getAllSeries();
         $products = $inventory->getAllProducts();
+        $productcondition = $inventory->getAllProductConditions();
+        $stock_availability=$inventory->getAllPhysicalStock();
+        $retailer_type=$inventory->getAllRetailerType();
         $countries=$check->getAllCountrys();
 
         ?>
@@ -156,9 +159,12 @@
                                                           <b>All Company</b>
                                                       </p>
                                                       <select class="form-control show-tick">
-                                                          <option>Mustard</option>
-                                                          <option>Ketchup</option>
-                                                          <option>Relish</option>
+                                                        <option value="" style="z-index:999;">Select Company</option>
+                                                      <?php  if (! empty($retailer_type)) {
+                                                            foreach ($retailer_type as $k => $v) {
+                                                                ?>
+                                                          <option value="<?=$retailer_type[$k]["id"]; ?>"><?=$retailer_type[$k]["retailer_type"]; ?></option>
+                                                      <? } } ?>
                                                       </select>
                                                   </div>
                                                   <div class="col-md-3">
@@ -166,9 +172,12 @@
                                                           <b>Coundition</b>
                                                       </p>
                                                       <select class="form-control show-tick">
-                                                          <option>Mustard</option>
-                                                          <option>Ketchup</option>
-                                                          <option>Relish</option>
+                                                          <option>Select Condition</option>
+                                                          <?php  if (! empty($productcondition)) {
+                                                                foreach ($productcondition as $k => $v) {
+                                                                    ?>
+                                                              <option value="<?=$productcondition[$k]["id"]; ?>"><?=$productcondition[$k]["condition"]; ?></option>
+                                                          <? } } ?>
                                                       </select>
                                                   </div>
                                                   <div class="col-md-3">
@@ -190,9 +199,13 @@
                                                           <b>Physical Stock</b>
                                                       </p>
                                                       <select class="form-control show-tick">
-                                                          <option>Mustard</option>
-                                                          <option>Ketchup</option>
-                                                          <option>Relish</option>
+                                                          <option>Select Stock Availabilty</option>
+                                                          <?php
+                                                          if (! empty($stock_availability)) {
+                                                              foreach ($stock_availability as $k => $v) {
+                                                                  ?>
+                                                            <option value="<?=$stock_availability[$k]["id"]; ?>"><?=$stock_availability[$k]["name_status"]; ?></option>
+                                                        <? } } ?>
                                                       </select>
                                                   </div>
                                               </div>

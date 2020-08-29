@@ -102,7 +102,7 @@ $result = $inventory->getAllModels();
                                           foreach ($result as $k => $v) {
                                               ?>
                                         <tr>
-                                                      <td><?=$inventory->getBrandNameById($result[$k]["brand_id"]); ?></td>
+                                                      <td><? print_r($result[$k]["brand_id"]); ?></td>
                                             <td><?=$result[$k]["name"]; ?></td>
 
                                             <td><?=$check->checkActive($result[$k]["status"]); ?></td>

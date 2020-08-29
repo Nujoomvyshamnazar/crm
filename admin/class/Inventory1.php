@@ -82,32 +82,7 @@ WHERE stock_type='1' AND tbrl_users.role_id=2 ORDER BY tbrl_stock.id";
 }
 
 
-function loadbrandbysearch($search_query)
-{
-  $sql = "SELECT id,name FROM tbrl_brands WHERE name LIKE  '$search_query%'";
-  $result = $this->db_handle->runBaseQuery($sql);
-  return $result;
-}
 
-function loadmodelbysearch($search_query)
-{
-  $sql = "SELECT id,name FROM tbrl_brand_model WHERE name LIKE  '$search_query%'";
-  $result = $this->db_handle->runBaseQuery($sql);
-  return $result;
-}
-
-function loadseriesbysearch($search_query)
-{
-  $sql = "SELECT id as id,series_name as name FROM  tbrl_brand_series WHERE series_name LIKE  '$search_query%'";
-  $result = $this->db_handle->runBaseQuery($sql);
-  return $result;
-}
-function loadproductbysearch($search_query)
-{
-  $sql = "SELECT id as id,name  FROM   tbrl_products WHERE name LIKE  '$search_query%'";
-  $result = $this->db_handle->runBaseQuery($sql);
-  return $result;
-}
 function getSupplierRequests()
 {
   $sql = "SELECT tbrl_country.name as country,tbrl_country.iso as iso,tbrl_stock.id as id,tbrl_products.image as image,tbrl_users.name as username,tbrl_products.name as product_name,tbrl_stock.stock as stock,tbrl_stock.status as status,tbrl_stock.budget as budget,tbrl_stock.admin_verified as admin_verified,tbrl_stock.created_date as created_date,tbrl_stock.stock_type as stock_type FROM  tbrl_stock
@@ -206,23 +181,5 @@ function getAllSeries() {
         $result = $this->db_handle->runBaseQuery($sql);
         return $result;
     }
-
-    function getAllRetailerType() {
-      $sql = "SELECT * FROM  tbrl_supplier_type ORDER BY id";
-      $result = $this->db_handle->runBaseQuery($sql);
-      return $result;
-  }
-
-  function getAllPhysicalStock() {
-    $sql = "SELECT * FROM  tbrl_physical_stock ORDER BY id";
-    $result = $this->db_handle->runBaseQuery($sql);
-    return $result;
-}
-
-function getAllProductConditions() {
-  $sql = "SELECT * FROM  tbrl_product_condition ORDER BY id";
-  $result = $this->db_handle->runBaseQuery($sql);
-  return $result;
-}
 }
 ?>
